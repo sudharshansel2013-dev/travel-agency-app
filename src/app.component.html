@@ -1,0 +1,26 @@
+@if (!store.currentUser()) {
+  <app-login></app-login>
+} @else {
+  <div class="flex h-screen bg-gray-100 no-print">
+    <aside class="w-64 bg-white border-r p-4">
+      <h1 class="font-bold text-xl text-blue-600 mb-8">TravelPro</h1>
+      <nav class="space-y-2">
+        <button (click)="setView('dashboard')" class="block w-full text-left p-2 hover:bg-gray-50">Dashboard</button>
+        <button (click)="setView('invoices')" class="block w-full text-left p-2 hover:bg-gray-50">Invoices</button>
+        <button (click)="setView('quotations')" class="block w-full text-left p-2 hover:bg-gray-50">Quotations</button>
+        <button (click)="setView('customers')" class="block w-full text-left p-2 hover:bg-gray-50">Customers</button>
+        <button (click)="setView('settings')" class="block w-full text-left p-2 hover:bg-gray-50">Settings</button>
+        <button (click)="logout()" class="block w-full text-left p-2 text-red-500 mt-8">Logout</button>
+      </nav>
+    </aside>
+    <main class="flex-1 overflow-auto">
+      @switch (currentView()) {
+        @case ('dashboard') { <div class="p-8"><h1 class="text-2xl font-bold">Welcome Back</h1></div> }
+        @case ('invoices') { <app-doc-manager type="invoice"></app-doc-manager> }
+        @case ('quotations') { <app-doc-manager type="quotation"></app-doc-manager> }
+        @case ('customers') { <app-customer-manager></app-customer-manager> }
+        @case ('settings') { <app-settings></app-settings> }
+      }
+    </main>
+  </div>
+}
